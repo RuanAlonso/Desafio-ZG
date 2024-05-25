@@ -13,7 +13,7 @@ Aqui, optei por seguir com o código em JavaScript utilizando funcionalidade de 
 
 // Essa linha usa a função 'fetch' para fazer requisição HTTP GET para o endpoint fornecido no desafio.
 ```JavaScript
-fetch('https://aczgdesafio.rj.r.appspot.com/passo1') 
+ fetch('https://aczgdesafio.rj.r.appspot.com/passo1') 
 ```
 // O 'then' aqui é usado para lidar com a resposta da requisição que fizemos acima. Ele receberá um ''callback'' quando a resposta estiver disponível.
 
@@ -31,7 +31,7 @@ fetch('https://aczgdesafio.rj.r.appspot.com/passo1')
 // Se a resposta for bem sucedida, este método extrai e retorna o corpo da resposta como um objeto JSON.
 
 ```JavaScript
-    return response.json();
+   return response.json();
   })
 ```
 
@@ -40,15 +40,15 @@ fetch('https://aczgdesafio.rj.r.appspot.com/passo1')
 ```JavaScript
   .then(data => {
  
-    console.log('Resposta:', data);
+   console.log('Resposta:', data);
   })
 ```
 // Por fim, este catch é usado para lidar com quaisquer erros que ocorram durante o processo de requisição ou de análise de dados. Também receberá um callback que será executado se ocorrer um erro, e imprime no console.
 
 ```JavaScript
-  .catch(error => {
+ .catch(error => {
 
-    console.error('Ocorreu um erro:', error);
+   console.error('Ocorreu um erro:', error);
   });
 ```
 
@@ -105,9 +105,51 @@ fetch('https://aczgdesafio.rj.r.appspot.com/passo2', options)
 ```
 
 
+// Como resposta a esse código, obtive :
+
+```JavaScript
+   {"status":201,"mensage":"Parabéns, você concluiu o Passo 2!","description":"
+   No passo 3 realize uma requisição do tipo POST no endpoint: https://aczgdesafio.rj.r.appspot.com/passo3",
+   "recomendations":"Envie no corpo da requisição seu cpf e a resposta da pergunta objetiva no seguinte formato:
+   {cpf:xxx.xxx.xxx-xx, respostaQuestaoObjetiva: xxxxxxxx}.
+   Atenção: a resposta da questão é pequena, sendo uma palavra ou um número informada como string","objectiveQuestion":
+   "PO5Q - Qual é o valor da variável resultado se resultado = 2^3 + 5?"}
+ 
+}
+```
+
+// Aqui por padrão, aos códigos anteriores, fiz o seguinte:
+
+```JavaScript
+const dados = {
+  cpf: "xxx.xxx.xxx-xx",
+  respostaQuestaoObjetiva: "treze"
+};
+
+const options = {
+  method: 'POST', // Método POST
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(dados) 
+};
 
 
+fetch('https://aczgdesafio.rj.r.appspot.com/passo3', options)
 
+  .then(response => response.text())
 
+  .then(data => console.log(data))
 
+  .catch(error => console.error('Erro:', error));
+```
+// Como resposta a esse código, obtive :
 
+```JavaScript
+  Passo 4!","description":"No passo 5, envie o token, a pergunta de lógica e a resposta da pergunta de lógica na Gupy",
+  "recomendations":"Nos testes da Gupy existem perguntas indicando aonde você deve inserir as informações solicitadas","logicQuestion":
+  "P5 - Escreva um algoritmo (sequência de passos) que receba as medidas de um triangulo e identifique se é equilátero, isósceles ou       escaleno.",
+  "token":"82d9189e32d3112f91886fd08b5440325bb1cdf1"}
+ 
+}
+```
