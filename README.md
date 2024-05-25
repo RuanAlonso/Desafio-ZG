@@ -52,3 +52,62 @@ fetch('https://aczgdesafio.rj.r.appspot.com/passo1')
   });
 ```
 
+// Como resposta a esse código, obtive :
+
+```JavaScript
+    "status": 200,
+    "mensage": "Parabéns, você concluiu o Passo 1!",
+    "description": "No passo 2 realize uma requisição do tipo POST no endpoint: https://aczgdesafio.rj.r.appspot.com/passo2",
+    "recomendations": "Envie no corpo da requisição um Json informando seu cpf, no seguinte formato: {cpf:xxx.xxx.xxx-xx}"
+}
+```
+
+Para essa parte do desafio, utilizei o seguinte código:
+
+
+// Define os dados a serem enviados na requisição
+
+```JavaScript
+const dados = {
+  cpf: "xxx.xxx.xxx-xx"
+};
+```
+
+// Configura as opções da requisição e já definindo o método HTTP como Post para que depois seja definido o tipo de conteúdo como JSON
+
+```JavaScript
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json' 
+  },
+```
+// Converte os dados para JSON e os envia no corpo da requisição
+
+```JavaScript
+  body: JSON.stringify(dados) 
+};
+```
+
+// Faz uma requisição POST para o endpoint fornecido, passando as opções configuradas e na sequência, converte a resposta para texto, manipula os dados retornados pela resposta e captura e trata os erros que ocorram durante o processo de requisição
+
+```JavaScript
+fetch('https://aczgdesafio.rj.r.appspot.com/passo2', options)
+
+
+  .then(response => response.text())
+
+
+  .then(data => console.log(data))
+
+
+  .catch(error => console.error('Erro:', error));
+```
+
+
+
+
+
+
+
+
