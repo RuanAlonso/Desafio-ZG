@@ -1,0 +1,88 @@
+import time             
+import winsound         
+import tkinter as tk    
+import threading       
+
+def erguer():
+    return [
+        "Erguei as mãos e dai glória a Deus",
+        "Erguei as mãos e dai glória a Deus",
+        "Erguei as mãos",
+        "E cantai como os filhos do Senhor"
+    ]
+
+def gerar_parte1():  
+    parte1 = erguer()
+    animais = ["O elefante", "A minhoquinha", "O canguru"]
+    variações = [
+        "E os passarinhos, como os filhos do Senhor",
+        "E os pinguins, como os filhos do Senhor",
+        "E o sapinho, como os filhos do Senhor"
+    ]
+    for animal, variacao in zip(animais, variações):   
+        parte1.extend([
+            "Os animaizinhos subiram de dois em dois",
+            "Os animaizinhos subiram de dois em dois",
+            f"{animal}",
+            f"{variacao}"
+        ])
+    parte1.extend([             
+        "Deus disse a Noé: Constrói uma arca",
+        "Deus disse a Noé: Constrói uma arca",
+        "Que seja feita",
+        "De madeira para os filhos do Senhor",
+        "Por isso...!",
+    ])
+
+    for i in range(3):
+        parte1.extend(erguer())
+    return parte1
+
+def gerar_parte2():
+    parte2 = []
+    membros = ["Braço direito", "Braço esquerdo", "Perna direita", "Perna esquerda", "Balança a cabeça", "Dá uma voltinha", "Dá um pulinho", "Abraça o irmão"]
+    
+    for i, membro in enumerate(membros):
+        parte2.extend([
+            "O senhor tem muitos filhos",
+            "Muitos filhos ele tem",
+            "Eu sou um deles, você também",
+            "Louvemos ao senhor"
+        ])
+        parte2.append(", ".join(membros[:i + 1]))
+    
+    return parte2
+
+def reproduzir_musica():
+    opcao = int(input("Digite 1 para tocar a parte 1, 2 para tocar a parte 2 ou 3 para tocar toda a música: "))
+    letra_musica = []
+    if opcao == 1:
+        letra_musica += gerar_parte1()
+    elif opcao == 2:
+        letra_musica += gerar_parte2()
+    elif opcao == 3:
+        letra_musica += gerar_parte1() + ["e atenção agora, porque"] + gerar_parte2()
+    else:
+        print("Opção inválida.")
+        return
+    
+    def atualizar_letra_e_reproduzir_audio():       
+        for index, linha in enumerate(letra_musica):               
+            label_letra.config(text=linha)                          
+            print(linha)
+            winsound.Beep(440, 500)                                 
+            time.sleep(1.5)                                        
+
+    root = tk.Tk()
+    root.title("Reprodução da Música")
+    root.geometry("400x300")
+
+    label_letra = tk.Label(root, text="", font=("Helvetica", 12))
+    label_letra.pack(expand=True, fill=tk.BOTH, padx=20, pady=20)
+
+    button_play = tk.Button(root, text="Play", command=lambda: threading.Thread(target=atualizar_letra_e_reproduzir_audio).start())
+    button_play.pack(pady=10)
+
+    root.mainloop()
+
+reproduzir_musica()
